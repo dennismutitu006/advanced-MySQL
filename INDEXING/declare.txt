@@ -1,0 +1,34 @@
+Declare Statement
+
+The DECLARE statement is used to define various items local to a program, for example local variables, conditions and handlers, cursors. DECLARE is used only inside a BEGIN ... END compound statement and must be at its start, before any other statements. Declarations follow the following order :
+Cursor declarations must appear before handler declarations.
+Variable and condition declarations must appear before cursor or handler declarations.
+
+Variables in Stored Programs
+
+System variables and user-defined variables can be used in stored programs, just as they can be used outside stored-program context. Stored programs use DECLARE to define local variables, and stored routines (procedures and functions) can be declared to take parameters that communicate values between the routine and its caller.
+
+Declare a Variable:
+DECLARE var_name [, var_name] ... type [DEFAULT value]
+To provide a default value for a variable, include a DEFAULT clause. The value can be specified as an expression; it need not be constant. If the DEFAULT clause is missing, the initial value is NULL.
+
+ Example: Local variables
+Local variables are declared within stored procedures and are only valid within the BEGIN…END block where they are declared.
+The following example shows the use of local variables in a stored procedure.
+DELIMITER $$
+CREATE PROCEDURE my_procedure_Local_Variables()
+BEGIN   /* declare local variables */   
+DECLARE a INT DEFAULT 10;   
+DECLARE b, c INT;    /* using the local variables */   
+SET a = a + 100;   
+SET b = 2;   
+SET c = a + b;    
+BEGIN      /* local variable in nested block */      
+DECLARE c INT;             
+SET c = 5;       
+/* local variable c takes precedence over the one of the          
+same name declared in the enclosing block. */       
+SELECT a, b, c;   
+END;    
+SELECT a, b, c;
+END$$
