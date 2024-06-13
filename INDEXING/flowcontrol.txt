@@ -1,0 +1,49 @@
+MySQL : Flow Control Statements
+
+MySQL supports IF, CASE, ITERATE, LEAVE, LOOP, WHILE, and REPEAT constructs for flow control within stored programs. It also supports RETURN within stored functions.
+
+MySQL : If Statement
+he IF statement implements a basic conditional construct within a stored programs and must be terminated with a semicolonThere is also an IF() function, which is different from the IF statement. Here is the syntax of if statement :
+
+IF condition THEN statement(s)   
+[ELSEIF condition THEN statement(s)] ...         
+[ELSE statement(s)]  
+END IF
+
+ If the condition evaluates to true, the corresponding THEN or ELSEIF clause statements(s) executes.
+- If no condition matches, the ELSE clause statement(s) executes.
+- Each statement(s) consists of one or more SQL statements; an empty statement(s) is not permitted.
+In the following example, we pass user_id through IN parameter to get the user name. Within the procedure, we have used IF ELSEIF and ELSE statement to get user name against multiple user id. The user name will be stored into INOUT parameter user_name.
+
+CREATE DEFINER=`root`@`127.0.0.1` 
+PROCEDURE `GetUserName`(INOUT user_name varchar(16),
+IN user_id varchar(16))
+BEGIN
+DECLARE uname varchar(16);
+SELECT name INTO uname
+FROM user
+WHERE userid = user_id;
+IF user_id = "scott123" 
+THEN
+SET user_name = "Scott";
+ELSEIF user_id = "ferp6734" 
+THEN
+SET user_name = "Palash";
+ELSEIF user_id = "diana094" 
+THEN
+SET user_name = "Diana";
+END IF;
+END
+Execute the procedure:
+
+mysql> CALL GetUserName(@A,'scott123')$$
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT @A;
+    -> $$
++-------+
+| @A    |
++-------+
+| Scott |
++-------+
+1 row in set (0.00 sec)
