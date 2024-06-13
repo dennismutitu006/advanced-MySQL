@@ -1,0 +1,19 @@
+--following is the syntax for createing a procedure in mysql
+
+use a diff delimeter from ;
+DELIMITER $$ ;
+
+CREATE PROCEDURE proc_name(holds the pars)
+> SELECT * FROM JOB; $$--the statment body.
+
+
+CALL A procedure.
+
+the CALL statement is used to invoke a prociduew that is stored in a dbase.
+syntax
+CALL sp_name([parameter[,...]])
+CALL sp_name[()]
+
+--Stored procedures which do not accept arguments can be invoked without parentheses
+eg.
+CALL job_data$$
