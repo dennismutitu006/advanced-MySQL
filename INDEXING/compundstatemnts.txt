@@ -1,0 +1,52 @@
+MySQL have following compound statements :
+
+BEGIN ... END Compound-Statement
+Statement Label
+DECLARE
+Variables in Stored Programs
+Flow Control Statements
+Cursors
+Condition Handling
+
+BEGIN ... END Compound-Statement Syntax
+ is used to write compound statements, i.e. when you need more than one statement within stored programs (e.g. stored procedures, functions, triggers, and events).
+
+[begin_label:] 
+BEGIN     
+[statement_list] 
+END 
+[end_label])
+
+statement_list : It represents one or more statements terminated by a semicolon(;). The statement_list itself is optional, so the empty compound statement BEGIN END is valid.
+Label Statement
+
+Labels are permitted for BEGIN ... END blocks and for the LOOP, REPEAT, and WHILE statements. Here is the syntax :
+[begin_label:] 
+BEGIN    
+[statement_list]  
+END [end_label]    
+[begin_label:] 
+LOOP      
+statement_list  
+END LOOP 
+[end_label]    
+[begin_label:] 
+REPEAT            
+statement_list  
+UNTIL search_condition  
+END 
+REPEAT [end_label]    
+[begin_label:] 
+WHILE search_condition 
+DO           
+statement_list  
+END WHILE 
+[end_label]
+
+Label use for those statements which follows following rules:
+
+begin_label must be followed by a colon
+begin_label can be given without end_label. If end_label is present, it must be the same as begin_label
+end_label cannot be given without begin_label.
+Labels at the same nesting level must be distinct
+Labels can be up to 16 characters long.
