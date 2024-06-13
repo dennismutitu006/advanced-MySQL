@@ -1,0 +1,19 @@
+The following example shows a simple stored procedure that uses an OUT parameter. Within the procedure MySQL MAX() function
+retrieves maximum salary from MAX_SALARY of jobs table.
+mysql> CREATE PROCEDURE my_proc_OUT (OUT highest_salary INT)
+-> BEGIN
+-> SELECT MAX(MAX_SALARY) INTO highest_salary FROM JOBS;
+-> END$$
+Query OK, 0 rows affected (0.00 sec)
+
+After calling the procedure the word OUT tells the DBMS that the value goes out from the PROCEDURE.
+Here highest_salary is the name of the output parameter and we have passed its value to a session variable named @M, in the CALL statement.
+CALL my_proc_OUT(@M)$$
+
+mysql< SELECT @M$$+-------+
+| @M    |
++-------+
+| 40000 |
++-------+
+1 row in set (0.00 sec)
+
