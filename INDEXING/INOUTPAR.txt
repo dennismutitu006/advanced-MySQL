@@ -1,0 +1,29 @@
+The following example shows a simple stored procedure that uses an INOUT parameter and an IN parameter. The user will supply 'M' or 'F' through IN parameter (emp_gender) to count a number of male or female from user_details table. The INOUT parameter (mfgender) will return the result to a user. Here is the code and output of the procedure :CALL my_proc_OUT(@M)$$Query OK, 1 row affected (0.03 sec)mysql> CREATE PROCEDURE my_proc_INOUT (INOUT mfgender INT, IN emp_gender CHAR(1))
+-> BEGIN
+-> SELECT COUNT(gender) INTO mfgender FROM user_details WHERE gender = emp_gender;
+-> END$$
+Query OK, 0 rows affected (0.00 sec)
+
+Now check the number of male and female users of the said tables :
+
+mysql> CALL my_proc_INOUT(@C,'M')$$
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT @C$$
++------+
+| @C   |
++------+
+|    3 |
++------+
+1 row in set (0.00 sec)
+
+mysql> CALL my_proc_INOUT(@C,'F')$$
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT @C$$
++------+
+| @C   |
++------+
+|    1 |
++------+
+1 row in set (0.00 sec)
