@@ -1,0 +1,40 @@
+MySQL : Procedure Parameters
+
+Here is the parameter part of CREATE PROCEDURE syntax :
+
+CREATE          
+[DEFINER = { user | CURRENT_USER }]          
+PROCEDURE sp_name ([proc_parameter[,...]])          
+[characteristic ...] routine_body    
+proc_parameter: [ IN | OUT | INOUT ] param_name type 
+
+We can divide the above CREATE PROCEDURE statement in the following ways :
+
+1. CREATE PROCEDURE sp_name () ...
+
+2. CREATE PROCEDURE sp_name ([IN] param_name type)...
+
+3. CREATE PROCEDURE sp_name ([OUT] param_name type)...
+
+4. CREATE PROCEDURE sp_name ([INOUT] param_name type)...
+
+In the first example, the parameter list is empty.
+
+In the second examp,le an IN parameter passes a value into a procedure. The procedure might modify the value, but the modification is not visible to the caller when the procedure returns.
+
+In the third example, an OUT parameter passes a value from the procedure back to the caller. Its initial value is NULL within the procedure, and its value is visible to the caller when the procedure returns.
+
+In the fourth example, an INOUT parameter is initialized by the caller, can be modified by the procedure, and any change made by the procedure is visible to the caller when the procedure returns.
+
+In a procedure, each parameter is an IN parameter by default. To specify otherwise for a parameter, use the keyword OUT or INOUT before the parameter name.
+
+--example
+below we have used a IN parameter 'var1' type int which accepts a no. frm user
+ Within the body of the procedure, there is a SELECT statement which fetches rows from 'jobs' table and the number of rows will be supplied by the user. Here is the procedure :
+mysql> CREATE PROCEDURE my_proc_IN (IN var1 INT)
+-> BEGIN
+-> SELECT * FROM jobs LIMIT var1;
+-> END$$
+To execute the first 2 rows from the 'jobs' table execute the following command 
+mysql> CALL my_proc_in(2)$$
+
